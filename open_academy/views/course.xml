@@ -23,11 +23,11 @@
                     <sheet>
                         <group>
                             <!-- Add your fields here -->
-                            <field name="name" "/>
+                            <field name="name"/>
                         </group>
                         <notebook>
                             <page name="description" string="Description">
-                            <field name="description placeholder="Una breve descripcion " />
+                            <field name="description" placeholder="Una breve descripcion"/>
                             </page>
                         </notebook>
 
