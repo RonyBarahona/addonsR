@@ -17,6 +17,8 @@ class open_academy(models.Model):
     responsible_id = fields.Many2one('res.users',
         ondelete='set null', string="Responsible", index=True)
 
+    
+
 
 class session(models.Model):
     _name = 'open_academy.session'
