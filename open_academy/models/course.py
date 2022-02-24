@@ -50,7 +50,6 @@ class session(models.Model):
     _name = 'open_academy.session'
 
     name = fields.Char(required=True)
-    start_date = fields.Date()
     start_date = fields.Date(default=fields.Date.today)
     duration = fields.Float(digits=(6, 2), help="duracion en dias")
     seats = fields.Integer(string="Cupos") 
@@ -59,13 +58,22 @@ class session(models.Model):
     instructor_id = fields.Many2one('res.partner', string="Instructor",
         domain=['|', ('instructor', '=', True),
                      ('category_id.name', 'ilike', "Teacher")])
+
     course_id = fields.Many2one('open_academy.course',
         ondelete='cascade', string="Course", required=True)
+
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
     
     taken_seats = fields.Float(string="Taken seats", compute='_taken_seats')
-    end_date = fields.Date(string="End Date", store=True,
-        compute='_get_end_date', inverse='_set_end_date')
+
+    end_date = fields.Date(string="End Date", store=True, compute='_get_end_date', inverse='_set_end_date')
+
+    hours = fields.Float(string="Duration in hours",
+                         compute='_get_hours', inverse='_set_hours')
+
+    attendees_count = fields.Integer(
+        string="Attendees count", compute='_get_attendees_count', store=True)
+   
 
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
@@ -116,6 +124,21 @@ class session(models.Model):
             start_date = fields.Datetime.from_string(r.start_date)
             end_date = fields.Datetime.from_string(r.end_date)
             r.duration = (end_date - start_date).days + 1
+
+    @api.depends('duration')
+    def _get_hours(self):
+        for r in self:
+            r.hours = r.duration * 24
+
+    def _set_hours(self):
+        for r in self:
+            r.duration = r.hours / 24
+
+    @api.depends('attendee_ids')
+    def _get_attendees_count(self):
+        for r in self:
+            r.attendees_count = len(r.attendee_ids)
+
 
 
     @api.constrains('instructor_id', 'attendee_ids')
