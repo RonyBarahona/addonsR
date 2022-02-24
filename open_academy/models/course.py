@@ -20,10 +20,9 @@ class open_academy(models.Model):
         'openacademy.session', 'course_id', string="Sessions")"""
     
 
-    @api.multi
+    """@api.multi
     def copy(self, default=None):
         default = dict(default or {})
-
         copied_count = self.search_count(
             [('name', '=like', u"Copy of {}%".format(self.name))])
         if not copied_count:
@@ -32,7 +31,7 @@ class open_academy(models.Model):
             new_name = u"Copy of {} ({})".format(self.name, copied_count)
 
         default['name'] = new_name
-        return super(Course, self).copy(default)
+        return super(Course, self).copy(default)"""
 
 
 
