@@ -54,6 +54,7 @@ class session(models.Model):
     duration = fields.Float(digits=(6, 2), help="duracion en dias")
     seats = fields.Integer(string="Cupos") 
     active = fields.Boolean(default=True)    
+    color = fields.Integer()
 
     instructor_id = fields.Many2one('res.partner', string="Instructor",
         domain=['|', ('instructor', '=', True),

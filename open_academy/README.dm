@@ -1,2 +1,4 @@
-file:///home/rony/Pictures/Screenshot%20from%202022-02-22%2019-08-50.png
+Imagenes en:
+
+https://drive.google.com/drive/folders/114_ZLbLkMykZ28gP7skaqZF2fr6odBKc?usp=sharing
 
